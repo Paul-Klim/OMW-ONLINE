@@ -409,7 +409,7 @@ class Osc {
             OscImageButton("alwaysRun", OscVisibility.NORMAL,
                 R.drawable.run, TOP_BAR_SPACING * 2, 0, KeyEvent.KEYCODE_Q),
             OscImageButton("quickSave", OscVisibility.NORMAL,
-                R.drawable.save, TOP_BAR_SPACING * 3, KeyEvent.KEYCODE_Y),
+                R.drawable.save, TOP_BAR_SPACING * 3, 0, KeyEvent.KEYCODE_Y),
             OscImageButton("diary", OscVisibility.ESSENTIAL,
                 R.drawable.journal, TOP_BAR_SPACING * 4, 0, KeyEvent.KEYCODE_J),
             OscImageButton("wait", OscVisibility.NORMAL,
