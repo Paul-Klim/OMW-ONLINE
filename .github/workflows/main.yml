@@ -38,12 +38,6 @@ jobs:
         cd buildscripts
         ./package-symbols.sh
         mv symbols.7z ../symbols-$(git rev-parse --short "$GITHUB_SHA")-${{ matrix.arch }}.7z
-    - name: Collect outputs
-      id: getfilename
-      run: |
-        mv app/build/outputs/apk/nightly/debug/omw_debug_*.apk omw-debug-$(git rev-parse --short "$GITHUB_SHA")-${{ matrix.arch }}.apk
-        echo "::set-output name=apk_file::$(ls omw-debug-*.apk | sed 's/\(.*\)\..*/\1/')"
-        echo "::set-output name=symbols_file::$(ls symbols-*.7z | sed 's/\(.*\)\..*/\1/')"
     - name: Upload the APK
       uses: actions/upload-artifact@v1
       with:
