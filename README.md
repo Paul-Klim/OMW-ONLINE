@@ -1,10 +1,5 @@
-# OpenMW for Android
+# TES3MP 0.8.0 Client for Android
 
-[Google Play](https://play.google.com/store/apps/details?id=is.xyz.omw) | [Google Play (Nightly)](https://play.google.com/store/apps/details?id=is.xyz.omw_nightly)
-
-[F-Droid](https://f-droid.org/packages/is.xyz.omw/) | [F-Droid (Nightly)](https://f-droid.org/packages/is.xyz.omw_nightly/)
-
-[FAQ & Info](https://omw.xyz.is/)
 
 ## Building
 
