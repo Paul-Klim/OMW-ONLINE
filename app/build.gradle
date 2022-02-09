@@ -26,7 +26,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "is.docent27.tes3mp"
+        applicationId "fork.tes3mp.client"
         versionCode 47
         versionName calculateVersion()
 
