@@ -13,14 +13,14 @@
         android:name="utils.MyApp"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="tes3mp"
+        android:icon="@drawable/load"
+        android:label="TES III MP Client"
         android:theme="@style/MyTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name="ui.activity.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="tes3mp"
+            android:label="TES III MP Client"
             android:screenOrientation="fullUser">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
