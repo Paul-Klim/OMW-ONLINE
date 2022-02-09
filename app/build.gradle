@@ -78,7 +78,7 @@ android {
 
     applicationVariants.all { variant ->
         variant.outputs.all {
-            outputFileName = "tes3mp.apk"
+            outputFileName = "omw_${variant.buildType.name}_${defaultConfig.versionName}.apk"
         }
     }
 }
