@@ -701,13 +701,13 @@
 	<item>16</item>
     </string-array>
     <string name="pref_server_select">Select Server</string>
-    <string name="pref_server_select_default">--connect 45.90.32.251:26666</string>
+    <string name="pref_server_select_default">--connect 89.223.65.44:33365</string>
     <string-array name="pref_server_select_entries">
-        <item>Eternal World</item>
-        <item>Other</item>
+        <item>AshesWind</item>
+        <item>Other IP</item>
     </string-array>
     <string-array name="pref_server_select_values">
-        <item>--connect 45.90.32.251:26666</item>
+        <item>--connect 89.223.65.44:33365</item>
         <item></item>
     </string-array>
 </resources>
