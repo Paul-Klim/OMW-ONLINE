@@ -68,7 +68,7 @@ android {
 
         nightly {
             dimension "version"
-            applicationId "is.docent27.tes3mp_nightly"
+            applicationId "fork.tes3mp.client"
             versionNameSuffix "-nightly"
         }
     }
