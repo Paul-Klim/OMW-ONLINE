@@ -701,13 +701,15 @@
 	<item>16</item>
     </string-array>
     <string name="pref_server_select">Select Server</string>
-    <string name="pref_server_select_default">---connect 89.223.65.44:33365</string>
+    <string name="pref_server_select_default">--connect 89.223.65.44:33365</string>
     <string-array name="pref_server_select_entries">
         <item>AshesWind</item>
+	<item>Vanilla (test)</item>    
         <item>Other</item>
     </string-array>
     <string-array name="pref_server_select_values">
         <item>--connect 89.223.65.44:33365</item>
+	<item>--connect 47.222.179.199:25563</item>
         <item></item>
     </string-array>
 </resources>
