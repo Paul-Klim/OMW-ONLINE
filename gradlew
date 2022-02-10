@@ -12,6 +12,7 @@ cp patch/Pelagiad.ttf app/src/main/assets/libopenmw/resources/mygui/Pelagiad.ttf
 cp patch/defaults.bin app/src/main/assets/libopenmw/openmw/defaults.bin
 cp patch/water_fragment.glsl app/src/main/assets/libopenmw/resources/shaders/water_fragment.glsl
 cp patch/water_vertex.glsl app/src/main/assets/libopenmw/resources/shaders/water_vertex.glsl
+cp patch/version app/src/main/assets/libopenmw/resources/version
 mv app/src/main/jniLibs/arm64-v8a/libtes3mp.so app/src/main/jniLibs/arm64-v8a/libopenmw.so
 mv app/src/main/jniLibs/armeabi-v7a/libtes3mp.so app/src/main/jniLibs/armeabi-v7a/libopenmw.so
 # Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
