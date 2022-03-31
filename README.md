@@ -1,4 +1,4 @@
-# TES3MP 0.8.0 Client for Android
+# OMW Online 0.8.0 Client for Android
 
 
 ## Building
