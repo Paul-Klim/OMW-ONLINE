@@ -54,6 +54,8 @@ adb logcat | ./tool/asan_symbolize.py --demangle -s ./symbols/armeabi-v7a/
 
 ## Credits
 
+Fix by Zer0
+
 ### Source code
 
 Original Java code written by sandstranger. Build scripts originally written by sandstranger and bwhaines.
