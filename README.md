@@ -1,4 +1,4 @@
-# OMW Online 0.8.0 Client Beta
+# OMW Online 0.8.1 Client Beta
 for Android
 
 
