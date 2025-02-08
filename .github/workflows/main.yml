@@ -41,6 +41,13 @@ jobs:
         wget https://github.com/Kitware/CMake/releases/download/v$CMAKE_VERSION/cmake-$CMAKE_VERSION-Linux-x86_64.tar.gz
         tar xvf cmake-$CMAKE_VERSION-Linux-x86_64.tar.gz
 
+    - name: Setup storage chooser
+      run: |
+        git clone https://github.com/codekidX/storage-chooser.git storagechooser
+        cd storagechooser
+        git checkout master
+        cd ..
+
     - name: Build native libraries
       run: |
         export PATH=/home/runner/cmake-$CMAKE_VERSION-Linux-x86_64/bin/:$PATH
@@ -77,13 +84,12 @@ jobs:
         }
         EOF
         
-        # Обновляем settings.gradle для Gradle 6.x
-        echo "include ':app'" > settings.gradle
-        
-        # Проверяем наличие gradle wrapper
-        if [ ! -f "gradlew" ]; then
-            gradle wrapper
-        fi
+        # Обновляем settings.gradle
+        cat << EOF > settings.gradle
+        include ':app'
+        include ':storagechooser'
+        project(':storagechooser').projectDir = new File(settingsDir, 'storagechooser')
+        EOF
 
     - name: Build the APK
       run: |
