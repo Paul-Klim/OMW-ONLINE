@@ -7,7 +7,7 @@ jobs:
     strategy:
       matrix:
         arch: [arm, arm64]
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     env:
       CMAKE_VERSION: 3.18.4
 
@@ -16,7 +16,9 @@ jobs:
 
     - name: Install dependencies
       run: |
-        sudo apt-get install -y build-essential gcc-multilib python unzip pkg-config p7zip-full
+        sudo apt-get update
+        sudo apt-get upgrade -y
+        sudo apt-get install -y --fix-missing build-essential gcc-multilib python3 unzip pkg-config p7zip-full
         cd /home/runner/
         wget https://github.com/Kitware/CMake/releases/download/v$CMAKE_VERSION/cmake-$CMAKE_VERSION-Linux-x86_64.tar.gz
         tar xvf cmake-$CMAKE_VERSION-Linux-x86_64.tar.gz
@@ -35,27 +37,14 @@ jobs:
         export ANDROID_NDK_HOME=$(pwd)/buildscripts/toolchain/ndk/
         ./gradlew assembleNightlyDebug
 
-    - name: Compress symbols
-      run: |
-        cd buildscripts
-        ./package-symbols.sh
-        mv symbols.7z ../symbols-$(git rev-parse --short "$GITHUB_SHA")-${{ matrix.arch }}.7z
-
     - name: Collect outputs
       id: getfilename
       run: |
         mv app/build/outputs/apk/nightly/debug/omw_debug_*.apk omw-debug-$(git rev-parse --short "$GITHUB_SHA")-${{ matrix.arch }}.apk
         echo "apk_file=$(ls omw-debug-*.apk | sed 's/\(.*\)\..*/\1/')" >> $GITHUB_OUTPUT
-        echo "symbols_file=$(ls symbols-*.7z | sed 's/\(.*\)\..*/\1/')" >> $GITHUB_OUTPUT
 
     - name: Upload the APK
       uses: actions/upload-artifact@v4
       with:
         name: ${{ steps.getfilename.outputs.apk_file }}
         path: ${{ steps.getfilename.outputs.apk_file }}.apk
-
-    - name: Upload debug symbols
-      uses: actions/upload-artifact@v4
-      with:
-        name: ${{ steps.getfilename.outputs.symbols_file }}
-        path: ${{ steps.getfilename.outputs.symbols_file }}.7z
