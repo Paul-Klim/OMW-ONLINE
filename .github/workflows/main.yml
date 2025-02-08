@@ -44,6 +44,14 @@ jobs:
         
         # Обновляем build.gradle
         cat << EOF >> build.gradle
+        buildscript {
+            repositories {
+                google()
+                mavenCentral()
+                jcenter()
+            }
+        }
+        
         allprojects {
             repositories {
                 google()
@@ -54,9 +62,8 @@ jobs:
         }
         EOF
         
-        # Обновляем settings.gradle
-        echo "dependencyResolutionManagement { repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS) }" >> settings.gradle
-        echo "repositories { google(); mavenCentral(); jcenter(); maven { url 'https://jitpack.io' } }" >> settings.gradle
+        # Обновляем settings.gradle для Gradle 6.1.1
+        echo "include ':app'" > settings.gradle
 
     - name: Build the APK
       run: |
