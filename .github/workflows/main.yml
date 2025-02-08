@@ -14,6 +14,12 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Set up JDK
+      uses: actions/setup-java@v4
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+
     - name: Install dependencies
       run: |
         sudo apt-get update
@@ -29,13 +35,22 @@ jobs:
         cd buildscripts
         ./build.sh --arch ${{ matrix.arch }}
 
+    - name: Update Gradle Properties
+      run: |
+        echo "org.gradle.jvmargs=-Xmx2048m -Dfile.encoding=UTF-8" >> gradle.properties
+        echo "android.useAndroidX=true" >> gradle.properties
+        echo "android.enableJetifier=true" >> gradle.properties
+        echo "kotlin.code.style=official" >> gradle.properties
+
     - name: Build the APK
       run: |
         ARCH=${{ matrix.arch }}
         source buildscripts/include/version.sh
         sed -i "s/abiFilters.*/abiFilters '$ABI'/" app/build.gradle
+        # Добавляем репозиторий jcenter для anko
+        echo "allprojects { repositories { jcenter() } }" >> build.gradle
         export ANDROID_NDK_HOME=$(pwd)/buildscripts/toolchain/ndk/
-        ./gradlew assembleNightlyDebug
+        ./gradlew assembleNightlyDebug --stacktrace
 
     - name: Collect outputs
       id: getfilename
@@ -48,3 +63,4 @@ jobs:
       with:
         name: ${{ steps.getfilename.outputs.apk_file }}
         path: ${{ steps.getfilename.outputs.apk_file }}.apk
+        
