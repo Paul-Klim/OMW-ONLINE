@@ -20,6 +20,18 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
 
+    - name: Update Gradle Wrapper
+      run: |
+        rm -f gradle/wrapper/gradle-wrapper.properties gradle/wrapper/gradle-wrapper.jar
+        mkdir -p gradle/wrapper
+        echo "distributionBase=GRADLE_USER_HOME" >> gradle/wrapper/gradle-wrapper.properties
+        echo "distributionPath=wrapper/dists" >> gradle/wrapper/gradle-wrapper.properties
+        echo "distributionUrl=https\://services.gradle.org/distributions/gradle-7.6-bin.zip" >> gradle/wrapper/gradle-wrapper.properties
+        echo "zipStoreBase=GRADLE_USER_HOME" >> gradle/wrapper/gradle-wrapper.properties
+        echo "zipStorePath=wrapper/dists" >> gradle/wrapper/gradle-wrapper.properties
+        wget https://raw.githubusercontent.com/gradle/gradle/master/gradle/wrapper/gradle-wrapper.jar -O gradle/wrapper/gradle-wrapper.jar
+        chmod +x gradlew
+
     - name: Install dependencies
       run: |
         sudo apt-get update
@@ -44,19 +56,34 @@ jobs:
         
         # Обновляем build.gradle
         cat << EOF >> build.gradle
+        buildscript {
+            repositories {
+                google()
+                mavenCentral()
+                gradlePluginPortal()
+            }
+            dependencies {
+                classpath 'com.android.tools.build:gradle:7.0.4'
+                classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
+            }
+        }
+        
         allprojects {
             repositories {
                 google()
                 mavenCentral()
-                jcenter()
                 maven { url "https://jitpack.io" }
             }
         }
         EOF
         
-        # Обновляем settings.gradle
-        echo "dependencyResolutionManagement { repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS) }" >> settings.gradle
-        echo "repositories { google(); mavenCentral(); jcenter(); maven { url 'https://jitpack.io' } }" >> settings.gradle
+        # Обновляем settings.gradle для Gradle 6.x
+        echo "include ':app'" > settings.gradle
+        
+        # Проверяем наличие gradle wrapper
+        if [ ! -f "gradlew" ]; then
+            gradle wrapper
+        fi
 
     - name: Build the APK
       run: |
